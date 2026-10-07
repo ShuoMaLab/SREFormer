@@ -1,0 +1,98 @@
+====================================================================================================
+=> Model name              : Ours
+=> Counter protocol        : both
+=> Config                  : <SREFORMER_BRATS_ROOT>\experiments\brats_2017\exp_agent_stage34_register_bs2\config.yaml
+=> Config sha256_16        : 1163207a424e4a7f
+=> Device                  : cpu
+=> CUDA_VISIBLE_DEVICES    : -1
+=> CUDA available          : False
+=> Dummy input             : [1, 4, 96, 96, 96]
+====================================================================================================
+=> Using architecture file: <SREFORMER_BRATS_ROOT>\architectures\segformer3d_stage34_register_bs2.py
+=> Architecture sha256_16: 7e9bbe66467c86c5
+=> Profiling patch: scripted cube_root replaced by Python cube_root
+=> Forced model class from arch_file: SegFormer3D
+=> Model class module: profile_arch_module_7e9bbe66467c86c5
+----------------------------------------------------------------------------------------------------
+Architecture sanity check:
+  AgentAttention3D modules          : 4
+  EfficientSelfAttention modules    : 0
+  EfficientSelfAttention3D modules  : 4
+  BSRM modules                      : 1
+  Attention-like modules:
+    AgentAttention3D                      : 4
+    EfficientSelfAttention3D              : 4
+----------------------------------------------------------------------------------------------------
+Stage attention check:
+  Stage 1: block1 not found
+  Stage 2: block2 not found
+  Stage 3: block3 not found
+  Stage 4: block4 not found
+----------------------------------------------------------------------------------------------------
+
+====================================================================================================
+[fvcore Result]
+----------------------------------------------------------------------------------------------------
+Total Params      : 4,429,861  (4.429861 M)
+Trainable Params  : 4,429,861  (4.429861 M)
+fvcore Params     : 4,429,861  (4.429861 M)
+FLOPs             : 5046509952
+GFLOPs            : 5.046509952
+----------------------------------------------------------------------------------------------------
+By operator:
+  batch_norm                    : 0.015704 GFLOPs
+  conv                          : 3.840556 GFLOPs
+  layer_norm                    : 0.028149 GFLOPs
+  linear                        : 0.680362 GFLOPs
+  matmul                        : 0.481739 GFLOPs
+----------------------------------------------------------------------------------------------------
+Unsupported operators reported by fvcore:
+  aten::adaptive_avg_pool3d     : 4
+  aten::add                     : 21
+  aten::gelu                    : 8
+  aten::mul                     : 13
+  aten::sigmoid                 : 1
+  aten::softmax                 : 12
+  aten::upsample_trilinear3d    : 4
+----------------------------------------------------------------------------------------------------
+Uncalled modules reported by fvcore:
+  segformer_decoder.bsrm.boundary_head
+
+====================================================================================================
+[THOP Result]
+----------------------------------------------------------------------------------------------------
+Total Params      : 4,429,861  (4.429861 M)
+Trainable Params  : 4,429,861  (4.429861 M)
+THOP Params       : 4,426,533  (4.426533 M)
+FLOPs             : 4597921448
+GFLOPs            : 4.597921448
+----------------------------------------------------------------------------------------------------
+THOP counting note:
+  Tool             : THOP
+  Protocol         : default module-hook based profiling
+  MAC-to-FLOP      : use THOP MACs directly; no extra x2 multiplier
+  Function ops     : torch.matmul / softmax / add / gelu / upsample may be missed
+  Recommended use  : secondary reference only, not preferred for attention efficiency claims
+
+====================================================================================================
+[Comparison]
+----------------------------------------------------------------------------------------------------
+fvcore GFLOPs     : 5.046509952
+THOP GFLOPs       : 4.597921448
+Difference        : 0.448588504 GFLOPs
+fvcore / THOP     : 1.097563 x
+----------------------------------------------------------------------------------------------------
+Interpretation:
+  fvcore is preferred when attention matmul should be included.
+  THOP default result is useful for reproducing module-based old tables,
+  but it can undercount attention implemented by function-level matmul.
+====================================================================================================
+
+====================================================================================================
+Final notes:
+  1. Use the same tool, input size, and MAC-to-FLOP convention for all models in one table.
+  2. fvcore is more appropriate when attention matmul is central to the efficiency claim.
+  3. THOP default profiling may undercount function-level operations in attention modules.
+  4. Do not mix fvcore and THOP numbers in the same comparison table.
+====================================================================================================
+

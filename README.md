@@ -3,60 +3,48 @@
 [![Paper](https://img.shields.io/badge/Status-under%20review-blue)](#citation)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-Official PyTorch implementation of **SREFormer** for lightweight 3D medical image segmentation.
+This repository contains the source code and dataset preparation instructions for the paper **"SREFormer: Selective Representation Enhancement for Lightweight 3D Medical Image Segmentation"**.
 
-> This repository is being prepared as the official reproducibility package for the manuscript currently under review at *Computerized Medical Imaging and Graphics*. Source files are currently populated with structured placeholders and will be replaced with the finalized implementation.
-
-## Overview
-
-SREFormer is designed for efficient 3D medical image segmentation with selective representation enhancement. The framework includes:
-
-- **RACA**: Register-Augmented Context Attention for compact global context aggregation.
-- **BSRM**: Boundary-Structure Refinement Module for decoding-stage semantic refinement.
-- A lightweight 3D segmentation backbone for volumetric medical imaging.
+## Overall Framework
 
 <p align="center">
-  <img src="figures/framework_placeholder.svg" alt="SREFormer framework placeholder" width="90%">
+  <img src="figures/allframe.svg" alt="SREFormer overall framework" width="95%">
 </p>
 
-## News
+<details>
+<summary>Abstract</summary>
 
-- 2026-10-07: Repository skeleton released with reproducibility-oriented placeholders.
+Three-dimensional medical image segmentation is a fundamental task in computer-aided diagnosis and treatment planning. In recent years, Transformers have been widely adopted for 3D medical image segmentation because of their ability to model long-range dependencies. However, global feature interaction on high-resolution volumetric data usually incurs substantial computational and memory costs, while excessive architectural compression may compromise deep semantic modeling and fine-grained spatial recovery. To address these challenges, we propose a novel lightweight 3D image segmentation network, termed SREFormer, which maintains low computational overhead while enhancing deep semantic interaction and fine-grained spatial structure restoration. Specifically, in the deep encoding stage, we introduce Register-Augmented Context Attention (RACA) to strengthen global semantic interactions across regions. RACA aggregates and broadcasts global context using a small number of Agent Tokens, while incorporating learnable Register Tokens to enrich the representation space of compressed interactions. This design improves deep semantic modeling with only limited additional overhead. In the decoding stage, we further propose a Boundary-Structure Refinement Module (BSRM), which extracts structural information through dual semantic-boundary pathways and refines primary semantic features using boundary responses. As a result, boundary information is directly involved in the final update of segmentation features. We conduct systematic evaluations on three public 3D medical image segmentation datasets: BraTS2017, ACDC, and Synapse. The experimental results demonstrate that SREFormer achieves competitive performance, with average Dice scores of 84.10%, 92.83%, and 80.50% on the three datasets, respectively. It surpasses 18 current state-of-the-art methods, including Swin-Unet, UNETR, and TransUNet. Moreover, SREFormer contains only approximately 4.43M parameters and requires about 13.51 GFLOPs per input volume.
 
-## Repository Structure
+</details>
 
-```text
-SREFormer/
-├── configs/              # Dataset and experiment configuration files
-├── datasets/             # Dataset loaders and preparation instructions
-├── models/               # SREFormer, RACA, and BSRM modules
-├── losses/               # Segmentation loss functions
-├── utils/                # Metrics, checkpointing, and reproducibility helpers
-├── tools/                # Preprocessing and profiling utilities
-├── scripts/              # Example training/evaluation shell scripts
-├── figures/              # README and paper figure placeholders
-├── checkpoints/          # Checkpoint release notes; large weights are not tracked
-├── results/              # Reported result tables and logs
-├── train.py              # Training entry point
-└── test.py               # Evaluation entry point
-```
+## News ✨
+
+- **2026-10-07:** The project is quickly updated👋
+- **2026-10-07:** We release the Codebase of SREFormer
+
+## Table of Contents
+
+- [Installation](#installation)
+- [Dataset Preparation](#dataset-preparation)
+- [Usage](#usage)
+  - [Training](#training)
+  - [Evaluation](#evaluation)
+  - [Model Profiling](#model-profiling)
+- [Pretrained Weights](#pretrained-weights)
+- [Results](#results)
+- [Citation](#citation)
 
 ## Installation
 
-### Requirements
-
-The finalized environment will be released with the accepted implementation. The current placeholder environment targets:
-
-- Python 3.10+
-- PyTorch 2.0+
-- CUDA-capable GPU for 3D training
+SREFormer is developed based on `python==3.10.19`, `torch==2.11.0`, and `cuda==12.8`.
 
 ```bash
 git clone https://github.com/ShuoMaLab/SREFormer.git
 cd SREFormer
 
 conda env create -f environment.yml
-conda activate sreformer
+conda activate Segformerpy3D
 ```
 
 Alternatively:
@@ -67,46 +55,48 @@ pip install -r requirements.txt
 
 ## Dataset Preparation
 
-The experiments are organized around three public 3D medical segmentation datasets:
+The experiments are organized around three public 3D medical segmentation datasets.
 
-| Dataset | Task | Status |
-| --- | --- | --- |
-| BraTS2017 | Brain tumor segmentation | Placeholder instructions |
-| ACDC | Cardiac MRI segmentation | Placeholder instructions |
-| Synapse | Multi-organ abdominal CT segmentation | Placeholder instructions |
+| Dataset | Task | Classes | Download Link |
+| --- | --- | --- | --- |
+| **BraTS2017** | Brain tumor segmentation | WT, TC, ET | [BraTS2017 Google Drive](https://drive.google.com/file/d/1LMrJRpcMjhsAT6tbstgB1GTdZBk5yKU8/view) |
+| **ACDC** | Cardiac MRI segmentation | RV, MYO, LV | [ACDC Challenge](https://www.creatis.insa-lyon.fr/Challenge/acdc/databases.html) |
+| **Synapse** | Multi-organ abdominal CT segmentation | Aorta, liver, left kidney, right kidney, gallbladder, pancreas, spleen, stomach | [Synapse BTCV](https://www.synapse.org/Synapse:syn3193805/wiki/89480) |
 
-Expected directory layout:
+### BraTS2017 Directory Structure
+
+The BraTS2017 code follows the SegFormer3D-style directory organization.
 
 ```text
-data/
-├── BraTS2017/
-│   ├── images/
-│   ├── labels/
-│   └── splits/
-├── ACDC/
-│   ├── images/
-│   ├── labels/
-│   └── splits/
-└── Synapse/
-    ├── images/
-    ├── labels/
-    └── splits/
+data/brats2017_seg/
+├── brats2017_raw_data/
+│   └── train/
+│       ├── imageTr/
+│       │   ├── BRATS_001_0000.nii.gz
+│       │   ├── BRATS_001_0001.nii.gz
+│       │   ├── BRATS_001_0002.nii.gz
+│       │   └── BRATS_001_0003.nii.gz
+│       ├── labelsTr/
+│       │   └── BRATS_001.nii.gz
+│       └── imageTs/
+└── BraTS2017_Training_Data/
 ```
 
-Detailed preprocessing instructions will be provided in [datasets/README.md](datasets/README.md).
+Additional dataset notes are available in [datasets/README.md](datasets/README.md).
 
 ## Usage
 
 ### Training
 
 ```bash
-# Train on Synapse
+# Train on BraTS2017 using the current codebase snapshot
+cd brats2017
+accelerate launch --config_file experiments/exp_agent_stage34_register_bs2_dim256/gpu_accelerate.yaml \
+  experiments/exp_agent_stage34_register_bs2_dim256/run_experiment.py
+
+# Placeholder unified entries
 python train.py --config configs/synapse.yaml
-
-# Train on ACDC
 python train.py --config configs/acdc.yaml
-
-# Train on BraTS2017
 python train.py --config configs/brats2017.yaml
 ```
 
@@ -121,7 +111,7 @@ python test.py --config configs/brats2017.yaml --checkpoint checkpoints/brats201
 ### Model Profiling
 
 ```bash
-python tools/profile_model.py --config configs/synapse.yaml
+python tools/profile_model.py --config configs/brats2017.yaml
 ```
 
 ## Pretrained Weights
@@ -138,13 +128,13 @@ See [checkpoints/README.md](checkpoints/README.md) for the expected checkpoint l
 
 ## Results
 
-The final quantitative results will be added after the reproducibility package is finalized.
-
 | Dataset | Dice | HD95 | Params | GFLOPs |
 | --- | ---: | ---: | ---: | ---: |
-| BraTS2017 | TBD | TBD | TBD | TBD |
-| ACDC | TBD | TBD | TBD | TBD |
-| Synapse | TBD | TBD | TBD | TBD |
+| BraTS2017 | 84.10 | 5.50 | 4.43M | 13.51 |
+| ACDC | 92.83 | - | 4.43M | 13.51 |
+| Synapse | 80.85 | 9.25 | 5.12M | 13.51 |
+
+Full comparison and ablation tables are provided in [results/reported_results.md](results/reported_results.md).
 
 ## Citation
 
@@ -152,7 +142,7 @@ If you find this repository useful, please cite our paper after publication:
 
 ```bibtex
 @article{sreformer2026,
-  title   = {SREFormer: Placeholder Title for Lightweight 3D Medical Image Segmentation},
+  title   = {SREFormer: Selective Representation Enhancement for Lightweight 3D Medical Image Segmentation},
   author  = {Author One and Author Two and Author Three},
   journal = {Computerized Medical Imaging and Graphics},
   year    = {2026},
@@ -162,7 +152,7 @@ If you find this repository useful, please cite our paper after publication:
 
 ## Acknowledgements
 
-This repository follows the reproducibility style of recent medical image segmentation repositories and will acknowledge any reused codebases in the final release.
+The BraTS2017 code organization is based on the SegFormer3D training style. Additional acknowledgements will be updated with the finalized release.
 
 ## License
 

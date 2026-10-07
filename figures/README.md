@@ -4,6 +4,7 @@ Place paper and README figures here.
 
 Suggested files:
 
+- `allframe.svg`
 - `framework_placeholder.svg`
 - `qualitative_synapse_placeholder.png`
 - `qualitative_acdc_placeholder.png`

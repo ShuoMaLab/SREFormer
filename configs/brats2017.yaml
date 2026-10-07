@@ -6,7 +6,8 @@ experiment:
 data:
   dataset: BraTS2017
   root: data/BraTS2017
-  num_classes: 4
+  num_classes: 3
+  in_channels: 4
   input_size: [128, 128, 128]
 
 evaluation:

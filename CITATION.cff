@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-title: "SREFormer: Placeholder Title for Lightweight 3D Medical Image Segmentation"
+title: "SREFormer: Selective Representation Enhancement for Lightweight 3D Medical Image Segmentation"
 message: "If you use this repository, please cite the associated paper after publication."
 type: software
 authors:
@@ -8,5 +8,6 @@ authors:
   - family-names: "Author"
     given-names: "Two"
 repository-code: "https://github.com/ShuoMaLab/SREFormer"
+abstract: "Official source code and dataset preparation instructions for SREFormer, currently under review at Computerized Medical Imaging and Graphics."
 license: "MIT"
 date-released: "2026-10-07"
