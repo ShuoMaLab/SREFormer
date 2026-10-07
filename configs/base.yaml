@@ -1,0 +1,37 @@
+experiment:
+  name: sreformer_placeholder
+  seed: 2026
+  output_dir: runs
+
+data:
+  root: data
+  dataset: PLACEHOLDER
+  num_classes: 2
+  input_size: [128, 128, 128]
+  spacing: null
+  train_split: splits/train.txt
+  val_split: splits/val.txt
+  test_split: splits/test.txt
+
+model:
+  name: SREFormer
+  in_channels: 1
+  base_channels: 32
+  depths: [2, 2, 2, 2]
+  num_register_tokens: 8
+  use_raca: true
+  use_bsrm: true
+
+training:
+  epochs: 300
+  batch_size: 2
+  num_workers: 4
+  optimizer: AdamW
+  learning_rate: 0.0001
+  weight_decay: 0.0001
+  amp: true
+
+evaluation:
+  checkpoint: checkpoints/placeholder_best.pth
+  save_predictions: false
+  metrics: [dice, hd95]

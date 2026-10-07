@@ -1,0 +1,13 @@
+_base_: base.yaml
+
+experiment:
+  name: sreformer_brats2017
+
+data:
+  dataset: BraTS2017
+  root: data/BraTS2017
+  num_classes: 4
+  input_size: [128, 128, 128]
+
+evaluation:
+  checkpoint: checkpoints/brats2017_best.pth

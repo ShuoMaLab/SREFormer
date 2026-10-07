@@ -1,0 +1,13 @@
+torch>=2.0.0
+torchvision>=0.15.0
+numpy>=1.23.0
+scipy>=1.10.0
+SimpleITK>=2.2.0
+nibabel>=5.0.0
+tqdm>=4.65.0
+PyYAML>=6.0
+einops>=0.6.0
+monai>=1.2.0
+scikit-image>=0.20.0
+medpy>=0.4.0
+thop>=0.1.1

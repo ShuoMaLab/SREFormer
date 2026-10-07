@@ -1,0 +1,13 @@
+_base_: base.yaml
+
+experiment:
+  name: sreformer_synapse
+
+data:
+  dataset: Synapse
+  root: data/Synapse
+  num_classes: 9
+  input_size: [96, 96, 96]
+
+evaluation:
+  checkpoint: checkpoints/synapse_best.pth

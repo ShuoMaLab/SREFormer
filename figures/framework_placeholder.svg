@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-label="SREFormer framework placeholder">
+  <rect width="1200" height="420" fill="#f8fafc"/>
+  <rect x="60" y="130" width="170" height="120" rx="12" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
+  <rect x="310" y="100" width="210" height="180" rx="12" fill="#dcfce7" stroke="#16a34a" stroke-width="3"/>
+  <rect x="610" y="100" width="210" height="180" rx="12" fill="#fef3c7" stroke="#d97706" stroke-width="3"/>
+  <rect x="910" y="130" width="220" height="120" rx="12" fill="#fee2e2" stroke="#dc2626" stroke-width="3"/>
+  <text x="145" y="190" text-anchor="middle" font-family="Arial, sans-serif" font-size="26" fill="#1e3a8a">3D Input</text>
+  <text x="145" y="224" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#1e3a8a">Volume</text>
+  <text x="415" y="180" text-anchor="middle" font-family="Arial, sans-serif" font-size="26" fill="#166534">SREFormer</text>
+  <text x="415" y="216" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#166534">Encoder</text>
+  <text x="715" y="176" text-anchor="middle" font-family="Arial, sans-serif" font-size="26" fill="#92400e">RACA + BSRM</text>
+  <text x="715" y="214" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#92400e">Context and Boundary Refinement</text>
+  <text x="1020" y="190" text-anchor="middle" font-family="Arial, sans-serif" font-size="26" fill="#991b1b">Prediction</text>
+  <text x="1020" y="224" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#991b1b">Segmentation Map</text>
+  <path d="M240 190 H295" stroke="#334155" stroke-width="5" marker-end="url(#arrow)"/>
+  <path d="M530 190 H595" stroke="#334155" stroke-width="5" marker-end="url(#arrow)"/>
+  <path d="M830 190 H895" stroke="#334155" stroke-width="5" marker-end="url(#arrow)"/>
+  <text x="600" y="350" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" fill="#334155">Official framework figure will be added after final release</text>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#334155"/>
+    </marker>
+  </defs>
+</svg>

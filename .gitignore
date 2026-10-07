@@ -218,3 +218,13 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# SREFormer local artifacts
+data/
+runs/
+outputs/
+wandb/
+*.pth
+*.pt
+*.ckpt
+!checkpoints/README.md

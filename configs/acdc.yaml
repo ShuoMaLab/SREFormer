@@ -1,0 +1,13 @@
+_base_: base.yaml
+
+experiment:
+  name: sreformer_acdc
+
+data:
+  dataset: ACDC
+  root: data/ACDC
+  num_classes: 4
+  input_size: [128, 128, 32]
+
+evaluation:
+  checkpoint: checkpoints/acdc_best.pth
