@@ -1,33 +1,44 @@
-"""Evaluation entry point placeholder for SREFormer."""
+"""Unified evaluation entry for SREFormer."""
 
 from __future__ import annotations
 
 import argparse
+import runpy
+import sys
 from pathlib import Path
 
-import yaml
+
+ROOT = Path(__file__).resolve().parent
 
 
-def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Evaluate SREFormer")
-    parser.add_argument("--config", type=str, required=True, help="Path to a YAML config file.")
-    parser.add_argument("--checkpoint", type=str, default=None, help="Path to a model checkpoint.")
-    return parser.parse_args()
-
-
-def load_config(path: str | Path) -> dict:
-    with open(path, "r", encoding="utf-8") as handle:
-        return yaml.safe_load(handle)
+def infer_dataset(config: str | None, dataset: str | None) -> str:
+    if dataset:
+        return dataset.lower()
+    if config:
+        name = Path(config).stem.lower()
+        if "brats" in name:
+            return "brats2017"
+        if "acdc" in name:
+            return "acdc"
+        if "synapse" in name:
+            return "synapse"
+    return "synapse"
 
 
 def main() -> None:
-    args = parse_args()
-    cfg = load_config(args.config)
-    checkpoint = args.checkpoint or cfg.get("evaluation", {}).get("checkpoint", "checkpoints/placeholder_best.pth")
-    dataset_name = cfg.get("data", {}).get("dataset", "PLACEHOLDER")
-    print(f"[SREFormer] Evaluation placeholder for dataset: {dataset_name}")
-    print(f"[SREFormer] Checkpoint: {checkpoint}")
-    print("[SREFormer] Replace test.py with the finalized evaluation pipeline before release.")
+    parser = argparse.ArgumentParser(description="Evaluate SREFormer")
+    parser.add_argument("--dataset", choices=["brats2017", "synapse", "acdc"], default=None)
+    parser.add_argument("--config", default=None)
+    args, extra = parser.parse_known_args()
+
+    dataset = infer_dataset(args.config, args.dataset)
+    if dataset == "brats2017":
+        print("BraTS2017 standalone evaluation will be released with the cleaned checkpoint package.")
+        return
+
+    target = ROOT / "synapse" / "validate_ours_synapse8_best.py"
+    sys.argv = [str(target), *extra]
+    runpy.run_path(str(target), run_name="__main__")
 
 
 if __name__ == "__main__":

@@ -4,7 +4,7 @@ wandb_parameters:
   mode: "disabled"  # set this to "online" if you want to log to wandb
   entity: pcvlab
   group: brats2017
-  name: SREFormer_brats2017_agent_stage34_register_bs2_dim256
+  name: SREFormer_brats2017_agent_stage34_register_bs2
   resume: False
   tags: ["pcvlab", "dice", "b0_model", "adamw", "paper_close"]
 
@@ -72,7 +72,7 @@ training_parameters:
   print_every: 200
   calculate_metrics: True
   grad_accumulate_steps: 1
-  checkpoint_save_dir: ./experiments/exp_agent_stage34_register_bs2_dim256/checkpoints
+  checkpoint_save_dir: ./experiments/brats_2017/exp_agent_stage34_register_bs2/checkpoints
   load_checkpoint:
     load_full_checkpoint: False
     load_model_only: False
@@ -83,12 +83,12 @@ dataset_parameters:
   dataset_type: "brats2017_seg"
 
   train_dataset_args:
-    root: "../data/brats2017_seg"
+    root: "./data/brats2017_seg"
     train: True
     fold_id: null
 
   val_dataset_args:
-    root: "../data/brats2017_seg"
+    root: "./data/brats2017_seg"
     train: False
     fold_id: null
 

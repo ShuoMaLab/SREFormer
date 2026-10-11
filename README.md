@@ -3,7 +3,7 @@
 [![Paper](https://img.shields.io/badge/Status-under%20review-blue)](#citation)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-This repository contains the source code and dataset preparation instructions for the paper **"SREFormer: Selective Representation Enhancement for Lightweight 3D Medical Image Segmentation"**.
+This is the official reproducibility repository for **"SREFormer: Selective Representation Enhancement for Lightweight 3D Medical Image Segmentation"**.
 
 ## Overall Framework
 
@@ -29,9 +29,7 @@ Three-dimensional medical image segmentation is a fundamental task in computer-a
 - [Dataset Preparation](#dataset-preparation)
 - [Usage](#usage)
   - [Training](#training)
-  - [Evaluation](#evaluation)
-  - [Model Profiling](#model-profiling)
-- [Pretrained Weights](#pretrained-weights)
+  - [Trained Weights](#trained-weights)
 - [Results](#results)
 - [Citation](#citation)
 
@@ -39,92 +37,53 @@ Three-dimensional medical image segmentation is a fundamental task in computer-a
 
 SREFormer is developed based on `python==3.10.19`, `torch==2.11.0`, and `cuda==12.8`.
 
+Clone the repository:
+
 ```bash
 git clone https://github.com/ShuoMaLab/SREFormer.git
 cd SREFormer
-
-conda env create -f environment.yml
-conda activate Segformerpy3D
 ```
 
-Alternatively:
+Create a conda environment (recommended):
 
 ```bash
-pip install -r requirements.txt
+conda create -n SREFormer python=3.10.19 -y
+conda activate SREFormer
+```
+
+Install the package:
+
+```bash
+pip install torch==2.11.0 torchvision==0.26.0 --index-url https://download.pytorch.org/whl/cu128
+pip install -e .
 ```
 
 ## Dataset Preparation
 
 The experiments are organized around three public 3D medical segmentation datasets.
 
-| Dataset | Task | Classes | Download Link |
-| --- | --- | --- | --- |
-| **BraTS2017** | Brain tumor segmentation | WT, TC, ET | [BraTS2017 Google Drive](https://drive.google.com/file/d/1LMrJRpcMjhsAT6tbstgB1GTdZBk5yKU8/view) |
-| **ACDC** | Cardiac MRI segmentation | RV, MYO, LV | [ACDC Challenge](https://www.creatis.insa-lyon.fr/Challenge/acdc/databases.html) |
-| **Synapse** | Multi-organ abdominal CT segmentation | Aorta, liver, left kidney, right kidney, gallbladder, pancreas, spleen, stomach | [Synapse BTCV](https://www.synapse.org/Synapse:syn3193805/wiki/89480) |
+| Dataset | Task | Classes |
+| --- | --- | --- |
+| **BraTS2017** | Brain tumor segmentation | WT, TC, ET |
+| **ACDC** | Cardiac MRI segmentation | RV, MYO, LV |
+| **Synapse** | Multi-organ abdominal CT segmentation | Aorta, liver, left kidney, right kidney, gallbladder, pancreas, spleen, stomach |
 
-### BraTS2017 Directory Structure
-
-The BraTS2017 code follows the SegFormer3D-style directory organization.
-
-```text
-data/brats2017_seg/
-├── brats2017_raw_data/
-│   └── train/
-│       ├── imageTr/
-│       │   ├── BRATS_001_0000.nii.gz
-│       │   ├── BRATS_001_0001.nii.gz
-│       │   ├── BRATS_001_0002.nii.gz
-│       │   └── BRATS_001_0003.nii.gz
-│       ├── labelsTr/
-│       │   └── BRATS_001.nii.gz
-│       └── imageTs/
-└── BraTS2017_Training_Data/
-```
-
-Additional dataset notes are available in [datasets/README.md](datasets/README.md).
+We provide the details about dataset notes in [datasets/README.md](datasets/README.md).
 
 ## Usage
 
 ### Training
 
 ```bash
-# Train on BraTS2017 using the current codebase snapshot
-cd brats2017
-accelerate launch --config_file experiments/exp_agent_stage34_register_bs2_dim256/gpu_accelerate.yaml \
-  experiments/exp_agent_stage34_register_bs2_dim256/run_experiment.py
-
-# Placeholder unified entries
-python train.py --config configs/synapse.yaml
-python train.py --config configs/acdc.yaml
-python train.py --config configs/brats2017.yaml
+cd SREFormer
+python -m accelerate.commands.launch --config_file ./gpu_accelerate.yaml ./run_experiment.py --config ./experiments/brats_2017/exp_agent_stage34_register_bs2/config.yaml
 ```
 
-### Evaluation
+Replace the dataset path in the configuration file with your actual BraTS2017 dataset path.
 
-```bash
-python test.py --config configs/synapse.yaml --checkpoint checkpoints/synapse_best.pth
-python test.py --config configs/acdc.yaml --checkpoint checkpoints/acdc_best.pth
-python test.py --config configs/brats2017.yaml --checkpoint checkpoints/brats2017_best.pth
-```
+### Trained Weights
 
-### Model Profiling
-
-```bash
-python tools/profile_model.py --config configs/brats2017.yaml
-```
-
-## Pretrained Weights
-
-Pretrained checkpoints are not tracked by Git. Release links will be added here when available.
-
-| Dataset | Checkpoint | Status |
-| --- | --- | --- |
-| BraTS2017 | `brats2017_best.pth` | To be released |
-| ACDC | `acdc_best.pth` | To be released |
-| Synapse | `synapse_best.pth` | To be released |
-
-See [checkpoints/README.md](checkpoints/README.md) for the expected checkpoint layout.
+You can download the trained weights on Synapse dataset from [Google Drive](https://drive.google.com/drive/folders/1kk7kzhtD5HtuDSR1qx1-9zq4JjymwqYB?usp=drive_link).
 
 ## Results
 

@@ -9,7 +9,7 @@ implementation is standardized.
 def build_architecture(config):
     model_name = config.get("model_name", "segformer3d")
 
-    if model_name == "segformer3d":
+    if model_name in {"SREFormer", "sreformer", "segformer3d"}:
         from .segformer3d import build_segformer3d_model
 
         return build_segformer3d_model(config)

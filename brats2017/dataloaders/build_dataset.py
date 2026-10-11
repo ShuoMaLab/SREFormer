@@ -1,13 +1,8 @@
-import sys
-
-sys.path.append("../")
-
 from typing import Dict
 from monai.data import DataLoader
 from augmentations.augmentations import build_augmentations
 
 
-######################################################################
 def build_dataset(dataset_type: str, dataset_args: Dict):
     if dataset_type == "brats2021_seg":
         from .brats2021_seg import Brats2021Task1Dataset
@@ -35,27 +30,16 @@ def build_dataset(dataset_type: str, dataset_args: Dict):
         )
 
 
-######################################################################
 def build_dataloader(
     dataset, dataloader_args: Dict, config: Dict = None, train: bool = True
 ) -> DataLoader:
-    """builds the dataloader for given dataset
-
-    Args:
-        dataset (_type_): _description_
-        dataloader_args (Dict): _description_
-        config (Dict, optional): _description_. Defaults to None.
-        train (bool, optional): _description_. Defaults to True.
-
-    Returns:
-        DataLoader: _description_
-    """
     dataloader = DataLoader(
         dataset=dataset,
         batch_size=dataloader_args["batch_size"],
         shuffle=dataloader_args["shuffle"],
-        num_workers=dataloader_args["num_workers"],
+        num_workers=1,
         drop_last=dataloader_args["drop_last"],
-        pin_memory=True,
+        pin_memory=False,
+        persistent_workers=False,
     )
     return dataloader
