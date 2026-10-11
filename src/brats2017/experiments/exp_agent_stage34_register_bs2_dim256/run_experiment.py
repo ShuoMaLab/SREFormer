@@ -1,18 +1,16 @@
-"""BraTS2017 experiment entry placeholder.
-
-The imported BraTS2017 training code is being cleaned for the public release.
-This entry keeps the experiment location stable while the final trainer script is
-standardized.
-"""
+"""Compatibility entry for the BraTS2017 experiment configuration."""
 
 from pathlib import Path
+import runpy
+import sys
 
 
 def main() -> None:
+    root = Path(__file__).resolve().parents[4]
+    target = root / "run_experiment.py"
     config_path = Path(__file__).with_name("config.yaml")
-    print("SREFormer BraTS2017 experiment placeholder")
-    print(f"Config: {config_path}")
-    print("The finalized training entry will be released after code cleanup.")
+    sys.argv = [str(target), "--config", str(config_path)]
+    runpy.run_path(str(target), run_name="__main__")
 
 
 if __name__ == "__main__":

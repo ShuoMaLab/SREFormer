@@ -11,4 +11,4 @@ checkpoints/
 └── synapse_best.pth
 ```
 
-Download links will be added after the official checkpoint release.
+Trained weights can be downloaded from [Google Drive](https://drive.google.com/drive/folders/1kk7kzhtD5HtuDSR1qx1-9zq4JjymwqYB?usp=drive_link).

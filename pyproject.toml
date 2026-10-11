@@ -13,13 +13,12 @@ authors = [
   {name = "SREFormer Authors"}
 ]
 
+[tool.setuptools.package-dir]
+"" = "src"
+
 [tool.setuptools.packages.find]
-where = [".", "src"]
+where = ["src"]
 include = [
   "brats2017*",
-  "datasets*",
-  "losses*",
-  "models*",
-  "synapse*",
-  "utils*"
+  "synapse*"
 ]

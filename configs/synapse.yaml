@@ -1,5 +1,3 @@
-_base_: base.yaml
-
 experiment:
   name: sreformer_synapse
 
