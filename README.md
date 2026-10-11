@@ -8,7 +8,7 @@ This is the official reproducibility repository for **"SREFormer: Selective Repr
 ## Overall Framework
 
 <p align="center">
-  <img src="figures/allframe.svg" alt="SREFormer overall framework" width="95%">
+  <img src="assets/allframe.svg" alt="SREFormer overall framework" width="95%">
 </p>
 
 <details>
@@ -81,7 +81,7 @@ python -m accelerate.commands.launch --config_file ./gpu_accelerate.yaml ./run_e
 
 ### Trained Weights
 
-You can download the trained weights on Synapse dataset from [Google Drive](https://drive.google.com/drive/folders/1kk7kzhtD5HtuDSR1qx1-9zq4JjymwqYB?usp=drive_link).
+You can download the trained weights from [Google Drive](https://drive.google.com/drive/folders/1kk7kzhtD5HtuDSR1qx1-9zq4JjymwqYB?usp=drive_link).
 
 ## Citation
 

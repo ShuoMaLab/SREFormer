@@ -40,7 +40,7 @@ def main() -> None:
         runpy.run_path(str(target), run_name="__main__")
         return
 
-    target = ROOT / "synapse" / "train_ours_synapse8_patch_sw.py"
+    target = ROOT / "src" / "synapse" / "train_ours_synapse8_patch_sw.py"
     sys.argv = [str(target), *extra]
     runpy.run_path(str(target), run_name="__main__")
 

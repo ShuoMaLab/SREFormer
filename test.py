@@ -36,7 +36,7 @@ def main() -> None:
         print("BraTS2017 standalone evaluation will be released with the cleaned checkpoint package.")
         return
 
-    target = ROOT / "synapse" / "validate_ours_synapse8_best.py"
+    target = ROOT / "src" / "synapse" / "validate_ours_synapse8_best.py"
     sys.argv = [str(target), *extra]
     runpy.run_path(str(target), run_name="__main__")
 

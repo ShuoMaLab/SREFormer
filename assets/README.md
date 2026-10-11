@@ -1,6 +1,6 @@
-# Figures
+# Assets
 
-Place paper and README figures here.
+Place paper and README visual assets here.
 
 Suggested files:
 

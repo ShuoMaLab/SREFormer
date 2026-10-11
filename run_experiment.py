@@ -4,7 +4,7 @@ import random
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-sys.path.insert(0, str(ROOT / "brats2017"))
+sys.path.insert(0, str(ROOT / "src" / "brats2017"))
 
 import yaml
 import torch

@@ -4,9 +4,9 @@
 from pathlib import Path
 import sys
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-sys.path.insert(0, str(ROOT / "brats2017"))
+sys.path.insert(0, str(ROOT / "src" / "brats2017"))
 
 import train_segformer3d_synapse8_patch_sw as base
 try:
