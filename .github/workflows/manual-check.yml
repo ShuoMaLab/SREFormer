@@ -1,0 +1,11 @@
+name: Repository check
+
+on:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository check
+        run: echo "SREFormer repository workflow is configured."

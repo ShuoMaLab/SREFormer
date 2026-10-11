@@ -30,7 +30,6 @@ Three-dimensional medical image segmentation is a fundamental task in computer-a
 - [Usage](#usage)
   - [Training](#training)
   - [Trained Weights](#trained-weights)
-- [Results](#results)
 - [Citation](#citation)
 
 ## Installation
@@ -77,23 +76,12 @@ We provide the details about dataset notes in [datasets/README.md](datasets/READ
 ```bash
 cd SREFormer
 python -m accelerate.commands.launch --config_file ./gpu_accelerate.yaml ./run_experiment.py --config ./experiments/brats_2017/exp_agent_stage34_register_bs2/config.yaml
+# Replace the dataset path in the configuration file with your actual BraTS2017 dataset path.
 ```
-
-Replace the dataset path in the configuration file with your actual BraTS2017 dataset path.
 
 ### Trained Weights
 
 You can download the trained weights on Synapse dataset from [Google Drive](https://drive.google.com/drive/folders/1kk7kzhtD5HtuDSR1qx1-9zq4JjymwqYB?usp=drive_link).
-
-## Results
-
-| Dataset | Dice | HD95 | Params | GFLOPs |
-| --- | ---: | ---: | ---: | ---: |
-| BraTS2017 | 84.10 | 5.50 | 4.43M | 13.51 |
-| ACDC | 92.83 | - | 4.43M | 13.51 |
-| Synapse | 80.85 | 9.25 | 5.12M | 13.51 |
-
-Full comparison and ablation tables are provided in [results/reported_results.md](results/reported_results.md).
 
 ## Citation
 
@@ -111,7 +99,7 @@ If you find this repository useful, please cite our paper after publication:
 
 ## Acknowledgements
 
-The BraTS2017 code organization is based on the SegFormer3D training style. Additional acknowledgements will be updated with the finalized release.
+We are very grateful for the excellent works [SegFormer3D](https://github.com/OSUPCVLab/SegFormer3D), [UNETR](https://github.com/Project-MONAI/research-contributions/tree/main/UNETR), and [Transformer](https://arxiv.org/abs/1706.03762), which have provided the basis for our framework.
 
 ## License
 
